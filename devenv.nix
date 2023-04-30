@@ -1,11 +1,14 @@
-{ pkgs, ... }:
+{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/eabc38219184cc3e04a974fe31857d8e0eac098d.tar.gz") { }, ... }:
+#{ pkgs, ... }:
 
 {
   # https://devenv.sh/basics/
   env.GREET = "DevEnv has been loaded";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = [
+    pkgs.git
+  ];
 
   enterShell = ''
     hello
@@ -13,6 +16,10 @@
 
   # https://devenv.sh/languages/
   languages.nix.enable = true;
+  languages.python = {
+    enable = true;
+    poetry.enable = true;
+  };
 
   # https://devenv.sh/scripts/
   scripts.hello.exec = "echo $GREET";
@@ -26,5 +33,5 @@
   pre-commit.excludes = [ "\\.devenv.*" ];
 
   # https://devenv.sh/processes/
-  # processes.ping.exec = "ping example.com";
+  processes.test-server.exec = "(poetry run python myapp.py &)";
 }

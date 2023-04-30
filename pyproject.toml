@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "dd-helloworld"
+version = "0.1.0"
+description = "Simple Python Webserver"
+authors = ["Alex J Lennon <ajlennon@dynamicdevices.co.uk>"]
+license = "Public Domain"
+readme = "README.md"
+packages = [{include = "dd_helloworld"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^2.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
