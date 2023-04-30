@@ -33,5 +33,20 @@
   pre-commit.excludes = [ "\\.devenv.*" ];
 
   # https://devenv.sh/processes/
-  processes.test-server.exec = "(poetry run python myapp.py &)";
+  processes.test-server = {
+
+    exec = (pkgs.writeShellScript "complex-process" ''
+      _rc=0
+      echo Running flask server
+      poetry run python myapp.py &
+      _pid=$!
+      sleep 2
+      echo Checking server
+      curl http://127.0.0.1:5000 | awk '!/^{\"message\":\"Hello, Nix!\"}/ { print $0; rc=1 } END { exit rc }' || _rc=1
+      sleep 2
+      echo Killing flask server
+      kill $_pid
+      exit $_rc
+    '').outPath;
+  };
 }
