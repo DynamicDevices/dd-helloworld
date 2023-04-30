@@ -38,7 +38,7 @@
     exec = (pkgs.writeShellScript "complex-process" ''
       _rc=0
       echo Running flask server
-      poetry run python myapp.py &
+      poetry run python src/myapp.py &
       _pid=$!
       sleep 2
       echo Checking server
