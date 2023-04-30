@@ -1,4 +1,4 @@
-name: "Test"
+name: "Nix Builder"
 on:
   pull_request:
   push:
