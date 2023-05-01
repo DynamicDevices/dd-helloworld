@@ -17,4 +17,3 @@ jobs:
       name: Install devenv.sh
     - run: devenv ci
     - run: nix build
-    - run: nix-shell --run "echo OK"
